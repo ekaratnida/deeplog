@@ -2,10 +2,18 @@ import os
 import sys
 import logging
 import argparse
-sys.path.append('../')
 import torch
 torch.manual_seed(0)
-from deeplog.deeplog import train
+
+current = os.path.dirname(os.path.realpath(__file__))
+parent = os.path.dirname(current)
+sys.path.append(parent)
+
+#from deeplog.deeplog import train
+try:
+    from deeplog.deeplog import train 
+except NameError:
+    from .deeplog import train
 
 logging.basicConfig(level=logging.DEBUG,
                     format='[%(asctime)s][%(levelname)s]: %(message)s')
@@ -13,6 +21,7 @@ logger = logging.getLogger(__name__)
 logger.addHandler(logging.StreamHandler(sys.stdout))
 
 if __name__ == '__main__':
+
     parser = argparse.ArgumentParser()
 
     # Data and model checkpoints directories
@@ -54,4 +63,6 @@ if __name__ == '__main__':
 
     if not os.path.isdir('./model/'):
         os.mkdir('./model/')
+
+    import deeplog.deeplog
     train(parser.parse_args())

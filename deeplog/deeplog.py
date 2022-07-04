@@ -16,11 +16,9 @@ logging.basicConfig(level=logging.DEBUG,
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.StreamHandler(sys.stdout))
 
-
 # Load logs from aws s3 bucket
 BUCKET = '$YOUR_S3_BUCKET'
 PREFIX = '$YOUR_S3_FOLDER_NAME'
-
 
 class Model(nn.Module):
     def __init__(self, input_size, hidden_size, num_layers, num_classes):
@@ -36,7 +34,6 @@ class Model(nn.Module):
         out, _ = self.lstm(input, (h0, c0))
         out = self.fc(out[:, -1, :])
         return out
-
 
 class Generate():
     def __init__(self):
@@ -82,7 +79,6 @@ class Generate():
             line = line.decode().rstrip()
         return line
 
-
 def _get_train_data_loader(batch_size, is_distributed, window_size, local, **kwargs):
     logger.info("Get train data loader")
     _generate = Generate()
@@ -92,14 +88,12 @@ def _get_train_data_loader(batch_size, is_distributed, window_size, local, **kwa
                             sampler=train_sampler, **kwargs)
     return dataloader
 
-
 def _average_gradients(model):
     # Gradient averaging
     size = float(dist.get_world_size())
     for param in model.parameters():
         dist.all_reduce(param.grad.data, op=dist.ReduceOp.SUM)
         param.grad.data /= size
-
 
 def train(args):
     is_distributed = len(args.hosts) > 1 and args.backend is not None
@@ -166,7 +160,6 @@ def train(args):
         ))
     logger.debug('Finished Training')
     save_model(model, args.model_dir, args)
-
 
 def save_model(model, model_dir, args):
     logger.info("Saving the model.")

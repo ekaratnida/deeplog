@@ -31,11 +31,18 @@ def deeplog_file_generator(filename, df):
 
 
 if __name__ == '__main__':
+    import os
+    import sys
+
+    file_dir = os.path.dirname(__file__)
+    print(file_dir)
+    #sys.path.append(file_dir)
+
     ##########
     # Parser #
     ##########
-    input_dir = './data/OpenStack/'
-    output_dir = './openstack_result/'
+    input_dir = file_dir+'/data/OpenStack/'
+    output_dir = file_dir+'/openstack_result/'
     log_format = '<Logrecord> <Date> <Time> <Pid> <Level> <Component> \[<ADDR>\] <Content>'
     log_main = 'open_stack'
     tau = 0.5
