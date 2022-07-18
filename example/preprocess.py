@@ -3,6 +3,7 @@ import sys
 import logging
 import pandas as pd
 from spellpy import spell
+import shutil
 
 logging.basicConfig(level=logging.WARNING,
                     format='[%(asctime)s][%(levelname)s]: %(message)s')
@@ -57,6 +58,9 @@ if __name__ == '__main__':
 
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
+    else:
+        print("Remove if exist")
+        shutil.rmtree(output_dir, ignore_errors=True)
 
     for log_name in ['openstack_abnormal.log', 'openstack_normal2.log', 'openstack_normal1.log']:
         parser.parse(log_name)
