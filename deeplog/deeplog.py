@@ -178,7 +178,6 @@ def save_model(model, model_dir, args):
         }
         torch.save(model_info, f)
 
-
 def model_fn(model_dir):
     logger.info('Loading the model.')
     model_info = {}
@@ -201,7 +200,6 @@ def model_fn(model_dir):
             'input_size': input_size,
             'num_candidates': num_candidates}
 
-
 def input_fn(request_body, request_content_type):
     logger.info('Deserializing the input data.')
     if request_content_type == 'application/json':
@@ -209,7 +207,6 @@ def input_fn(request_body, request_content_type):
         return input_data
     else:
         raise ValueError("{} not supported by script!".format(request_content_type))
-
 
 def predict_fn(input_data, model_info):
     logger.info('Predict next template on this pattern series.')
@@ -243,13 +240,11 @@ def predict_fn(input_data, model_info):
         predict_cnt += 1
     return {'anomaly_cnt': anomaly_cnt, 'predict_cnt': predict_cnt, 'predict_list': predict_list}
 
-
 def output_fn(prediction, accept):
     logger.info('Serializing the generated output.')
     if accept == "application/json":
         return json.dumps(prediction), accept
     raise ValueError("{} accept type is not supported by this script".format(accept))
-
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
