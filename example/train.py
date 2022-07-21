@@ -67,4 +67,4 @@ if __name__ == '__main__':
     import deeplog.deeplog
     train(parser.parse_args())
 
-#python train.py --num-class 1143 --num-candidates 114 --epochs 35 --window-size 3 --local True
+#python example\train.py --num-class 1143 --num-candidates 114 --epochs 35 --window-size 3 --local True
