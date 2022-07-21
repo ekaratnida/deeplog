@@ -37,13 +37,15 @@ if __name__ == '__main__':
 
     file_dir = os.path.dirname(__file__)
     print(file_dir)
-    #sys.path.append(file_dir)
+    sys.path.append(file_dir)
 
     ##########
     # Parser #
     ##########
-    input_dir = file_dir+'/data/OpenStack/'
-    output_dir = file_dir+'/openstack_result/'
+    input_dir = file_dir+'\\data\\OpenStack\\'
+    print(input_dir)
+    output_dir = file_dir+'\\openstack_result\\'
+    print(output_dir)
     log_format = '<Logrecord> <Date> <Time> <Pid> <Level> <Component> \[<ADDR>\] <Content>'
     log_main = 'open_stack'
     tau = 0.5
